@@ -7,7 +7,7 @@ $ cp config-template.json botconfig.json
 ```
 
 The bot will need a valid Discord access token which you can get by creating an
-application for the bot in the [Discord Developer Portal dashboard](devportal).
+application for the bot in the [Discord Developer Portal dashboard][devportal].
 Add a bot user to the application and find the token on the Bot page. Copy the
 token and add it to your `botconfig.json` file.
 
