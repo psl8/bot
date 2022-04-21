@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+    "crypto/rand"
+    "math/big"
 
 	"github.com/diamondburned/arikawa/v3/api"
 	"github.com/diamondburned/arikawa/v3/discord"
@@ -24,6 +26,29 @@ func execSlashCommand(cmd *discord.CommandInteraction, s *state.State, e *gatewa
 			Type: api.MessageInteractionWithSource,
 			Data: &api.InteractionResponseData{
 				Content: option.NewNullableString("Pong!"),
+			},
+		}
+
+		if err := s.RespondInteraction(e.ID, e.Token, data); err != nil {
+			log.Println("failed to send interaction callback:", err)
+		}
+    case "rr":
+        nBig, err := rand.Int(rand.Reader, big.NewInt(1))
+        if err != nil {
+			log.Println("failed to get random int:", err)
+            return;
+        }
+        response_string := ""
+        if nBig.Int64() == 1 {
+            response_string = "*bang*\nYou're dead :("
+        } else {
+            response_string = "*click*\nYou're safe \U0001f920"
+        }
+
+		data := api.InteractionResponse{
+			Type: api.MessageInteractionWithSource,
+			Data: &api.InteractionResponseData{
+				Content: option.NewNullableString(response_string),
 			},
 		}
 
@@ -86,6 +111,10 @@ func main() {
 		{
 			Name:        "ping",
 			Description: "Basic ping command.",
+		},
+		{
+			Name:        "rr",
+            Description: "Russian roulette pew pew",
 		},
 	}
 
