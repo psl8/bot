@@ -33,7 +33,7 @@ func execSlashCommand(cmd *discord.CommandInteraction, s *state.State, e *gatewa
 			log.Println("failed to send interaction callback:", err)
 		}
     case "rr":
-        nBig, err := rand.Int(rand.Reader, big.NewInt(1))
+        nBig, err := rand.Int(rand.Reader, big.NewInt(2))
         if err != nil {
 			log.Println("failed to get random int:", err)
             return;
